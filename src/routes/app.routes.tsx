@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MainComponent from "../screens/main";
 import CameraComponent from "../screens/camera";
-
+import 'react-native-reanimated';
 
 export type rootStack = { main:undefined , camera:undefined }
 const Stack = createNativeStackNavigator<rootStack>();
