@@ -14,7 +14,7 @@ const CameraOverlay = ({children}:{children:JSX.Element}) => {
     const IsAppForeground = useIsForeground()
     const isFocused = useIsFocused()
 
-    const [ frameProcessor , barcodes ] = useScanBarcodes([BarcodeFormat.QR_CODE], { checkInverted: true });
+    const [ frameProcessor , barcodes ] = useScanBarcodes([BarcodeFormat.QR_CODE], { checkInverted: true});
 
     useEffect(() => console.log(barcodes),[barcodes]);
 
