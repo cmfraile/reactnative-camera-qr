@@ -13,14 +13,13 @@ const MainComponent = ({navigation:{navigate}}:mainComponentProps) => {
     const [ permissions , setPermissions ] = useState<{camera:CameraPermissionStatus|undefined,micro:CameraPermissionStatus|undefined}>({camera:undefined,micro:undefined});
   
     const requestPermissions = async() => {
-      console.log('CLICK')
       await Camera.requestCameraPermission();
       await Camera.requestMicrophonePermission();
     }
   
     useEffect(() => {
-      Camera.getCameraPermissionStatus().then(resp => setPermissions(v => ({...v,camera:resp})));
-      Camera.getMicrophonePermissionStatus().then(resp => setPermissions(v => ({...v,micro:resp})));
+      Camera.getCameraPermissionStatus().then(resp => {console.log(resp);setPermissions(v => ({...v,camera:resp}))});
+      Camera.getMicrophonePermissionStatus().then(resp => {console.log(resp);setPermissions(v => ({...v,micro:resp}))});
     },[])
   
     const goToCamera = () => navigate('camera')
