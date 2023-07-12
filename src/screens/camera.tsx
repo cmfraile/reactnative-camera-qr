@@ -3,7 +3,6 @@ import { Camera, useCameraDevices } from "react-native-vision-camera";
 import useIsForeground from "../hooks/IsAppForeground.hook";
 import { useIsFocused } from "@react-navigation/native";
 import { View } from "react-native";
-useScanBarcodes
 import 'react-native-reanimated'
 import { useScanBarcodes , BarcodeFormat } from "vision-camera-code-scanner";
 import { useEffect } from "react";
