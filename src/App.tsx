@@ -10,15 +10,26 @@ const App = () => {
     console.log('CLICK')
     await Camera.requestCameraPermission();
     await Camera.requestMicrophonePermission();
-    await Camera.getCameraPermissionStatus().then(resp => setPermissions(v => ({...v,camera:resp})));
-    await Camera.getMicrophonePermissionStatus().then(resp => setPermissions(v => ({...v,micro:resp})));
   }
+
+  useEffect(() => {
+    Camera.getCameraPermissionStatus().then(resp => setPermissions(v => ({...v,camera:resp})));
+    Camera.getMicrophonePermissionStatus().then(resp => setPermissions(v => ({...v,micro:resp})));
+  },[])
+
+  const goToCamera = () => console.log('CLICK')
 
   return(
     <SafeAreaView style={styles.container}>
       <Text style={styles.text}> Trasteo con cámara </Text>
       <Text style={styles.text}> {JSON.stringify(permissions)} </Text>
-      <Button title="solicitar permisos" onPress={requestPermissions} />
+
+      { 
+        (permissions.camera == 'authorized' && permissions.camera == 'authorized') 
+        ? <Button title="acceder a cámara" onPress={goToCamera}/>
+        : <Button title="solicitar permisos" onPress={requestPermissions} />
+      }
+
     </SafeAreaView>
   )
 
@@ -26,7 +37,7 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container:{flex:1,justifyContent:'center',alignItems:'center'},
-  text:{fontSize:30,flexWrap:'wrap'}
+  text:{fontSize:15,flexWrap:'wrap'}
 })
 
 export default App
