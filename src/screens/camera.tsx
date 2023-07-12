@@ -3,6 +3,7 @@ import { Camera, useCameraDevices } from "react-native-vision-camera";
 import useIsForeground from "../hooks/IsAppForeground.hook";
 import { useIsFocused } from "@react-navigation/native";
 import { View } from "react-native";
+import 'react-native-reanimated'
 
 const CameraOverlay = ({children}:{children:JSX.Element}) => {
 
