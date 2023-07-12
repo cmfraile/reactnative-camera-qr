@@ -1,20 +1,26 @@
 import { StyleSheet, Text } from "react-native";
-import { Camera, useCameraDevices } from "react-native-vision-camera";
+import { Camera, useCameraDevices, useFrameProcessor } from "react-native-vision-camera";
 import useIsForeground from "../hooks/IsAppForeground.hook";
 import { useIsFocused } from "@react-navigation/native";
 import { View } from "react-native";
-import { useScanBarcodes, BarcodeFormat } from 'vision-camera-code-scanner';
+import { scanBarcodes , BarcodeFormat } from 'vision-camera-code-scanner';
+import { runOnJS } from 'react-native-reanimated';
+import { useState } from "react";
 
 const CameraOverlay = ({children}:{children:JSX.Element}) => {
 
     const devices = useCameraDevices();
     const device = devices.back;
-    const IsAppForeground = useIsForeground()
-    const isFocused = useIsFocused()
+    const IsAppForeground = useIsForeground();
+    const isFocused = useIsFocused();
 
-    const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE], {
-        checkInverted: true,
-    });
+    const [ barcodes , setBarcodes ] = useState<any>([])
+
+    const frameProcessor = useFrameProcessor((frame) => {
+        'worklet';
+        const detectedBarcodes = scanBarcodes(frame, [BarcodeFormat.QR_CODE], { checkInverted: true });
+        runOnJS(setBarcodes)(detectedBarcodes);
+    }, []);
 
     return(
         (device == null)
